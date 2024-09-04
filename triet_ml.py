@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 def view_feature_importances(
     df: pd.DataFrame,
@@ -118,3 +119,39 @@ def draw_numeric_features(
     if overlap is not None:
         for plot in overlap:
             sns.lineplot(data=plot[0], x=plot[1], y=plot[2])
+            
+def read_csv_data(
+    data_dir: str = 'data/',
+    train_file_name: str = 'train.csv',
+    test_file_name: str = 'test.csv',
+    submission_file_name: str = 'sample_submission.csv'
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """
+    Đọc file csv để có các data frame
+    
+    Parameters
+    ----------
+    data_dir: str, default='data'
+        Đường dẫn đến thư mục
+    train_file_name: str, default='train.csv'
+        Tên file train
+    test_file_name: str, default='test.csv'
+        Tên file test
+    submission_file_name: str, default='sample_submission.csv'
+        Tên file submit
+        
+    Returns
+    -------
+    (train_df, test_df, sub_df): Một tuple chứa 3 dataframe được đọc
+    """
+    train_df = pd.read_csv(data_dir + train_file_name)
+    test_df = pd.read_csv(data_dir + test_file_name)
+    sub_df = pd.read_csv(data_dir + submission_file_name)
+    return train_df, test_df, sub_df
+
+def get_target_interact_feature(
+    features: str|list[str],
+    target: str,
+    method: str = 'mean',
+    
+):
